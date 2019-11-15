@@ -1,2 +1,2 @@
 # mongodb-go-driver-bson-register
-bson dcode interface priority use slice,map
+bson decode interface priority use slice,map
