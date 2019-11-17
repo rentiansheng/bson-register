@@ -2,41 +2,42 @@
 bson decode interface priority use slice,map
 
 
-The mongodb golang official driver bson uses the interface at the top, and puts the slice, map into an object called primitive.D (golang []interface type).
+mongodb golang 官方driver中bson在顶层使用interface的时候，会将slice, map 放到一个叫primitive.D的对象中（golang []interface类型）。
 
-eg: 
+示例: 
 
 ``` json
 
-// db data info 
+// 数据库中数据
 
 {"str":"str"}
 {"str_arr":["item11","item2"]}
 
 
-// driver retrun  info
+// driver 返回数据
 
 primitive.D{primitive.E{Key:"str", Value:"str"}}
 primitive.D{primitive.E{Key:"str_arr", Value:primitive.A{"item1", "item2"}}}
 
 ```
 
-### my implemented
+### 我实现的功能
 
-##### 1. support interface decode 
-Support when the incoming object is interface, the slice resolves to the privitive.A type (glang []interface{}), and the map object resolves to map[string]interface{}
+##### 1. 解析到interface类型支持
+支持当传入对象是interface的时候，slice 解析到 privitive.A 类型（glang []interface{}）,map 对象解析到map[string]interface{}
 
-#### 2. support anonymouse decode 
-
-
+#### 2. 支持struct匿名属性
 
 
 
-### result Compared
+
+
+### 结果对比
 
 
 #### interface
-official result :
+
+官方driver结果:
 
 ``` 
 primitive.D{primitive.E{Key:"str", Value:"str"}}
@@ -46,7 +47,7 @@ primitive.D{primitive.E{Key:"map_suit", Value:primitive.D{primitive.E{Key:"str_a
 
 ```
 
-my implemented result :
+我实现的register结果 :
 
 ```
 
@@ -57,18 +58,18 @@ primitive.D{primitive.E{Key:"map_suit", Value:primitive.D{primitive.E{Key:"str_a
 
 ```
 
-#### struct anonymouse property 
+#### struct  匿名属性
 
 
 
-official result :
+官方driver结果 :
 
 ```
 &main.testStruct{SubStruct:main.SubStruct{Str:""}}
 
 ```
 
-my implemented result:
+我实现的register结果 :
 
 ```
 &main.testStruct{SubStruct:main.SubStruct{Str:"str_val"}}
@@ -78,8 +79,7 @@ my implemented result:
 
 
 
-### Specific examples result dispay
-
+### 结果对比样例文件
 
 - demo/my_docode.go
 - demo/offical_decode.go
